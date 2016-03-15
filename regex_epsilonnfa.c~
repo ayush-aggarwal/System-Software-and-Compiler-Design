@@ -1,21 +1,55 @@
 #include<stdio.h>
 #include<ctype.h>
 #include<malloc.h>
-struct ptr
-{
-	char d;
-	struct ptr *next;
-};
 struct node
 {
 	int x;
-	struct ptr *p;
-};
+	char d;
+	struct node *next[5];
+}*start,*rear;
+struct node* create_new_node(int m,char n)
+{
+	struct node *n1=malloc(sizeof(struct node));
+	n1->x=m;
+	n1->d=n;
+	n1->next[0]=NULL;
+	return n1;
+}
+struct node* create_new_node1(int m,char n,char o)
+{
+	struct node *n1=malloc(sizeof(struct node));
+	n1->x=m;
+	n1->d=n;
+	n1->next[0]=NULL;
+	n1->next[1]=NULL;
+	return n1;
+}
+void display(struct node *n)
+{
+	while(n!=NULL)
+	{
+		printf("%d on %c -> ",n->x,n->d);
+		n=n->next[0];
+	}
+}
+int insert(struct node* np)
+{
+	if(start==NULL)
+	{
+		start=rear=np;
+	}
+	else
+	{
+		rear->next[0]=np;
+		rear=np;
+	}
+	return 0;
+}
 int main()
 {
-	struct ptr *start=NULL;
-	int i,p=0,q=0,j,nodecount=1,z=0;
-	char t,a1,a2;
+	int i,p=0,q=0,j,nodecount=1,z=0,a1=0;
+	start=rear=NULL;
+	char t,a2;
 	char regex[100];
 	char letters[100];
 	char operators[100];
@@ -33,27 +67,30 @@ int main()
 		t=operators[j];
 		if(t=='.')
 		{
-			struct node *n1=(struct node*)malloc(sizeof(struct node));
-			n1->x=nodecount;
-			nodecount=nodecount+1;
-			n1->p->d=letters[a1];
+			struct node *np;
+			np=create_new_node(nodecount,letters[a1]);
+			nodecount++;
 			a1++;
-			struct node *n2=(struct node*)malloc(sizeof(struct node));
-			n2->x=nodecount;
-			nodecount=nodecount+1;
-			n1->p->next=n2;
-			n2->p->d='E';
-			struct node *n3=(struct node*)malloc(sizeof(struct node));
-			n3->x=nodecount;
-			nodecount=nodecount+1;
-			n2->p->next=n3;
-			n3->p->d=letters[a1];
+			insert(np);
+			np=create_new_node(nodecount,(char)'E');
+			nodecount++;
+			insert(np);
+			np=create_new_node(nodecount,letters[a1]);
+			nodecount++;
 			a1++;
-			struct node *n4=(struct node*)malloc(sizeof(struct node));
-			n4->x=nodecount;
-			nodecount=nodecount+1;
-			n3->p->next=n4;
-			printf("shaghgfhd\n");
+			insert(np);
+			np=create_new_node(nodecount,']');
+			nodecount++;
+			insert(np);
+			display(start);
+		}
+		else if(t=='+')
+		{
+			struct node *np;
+			np=create_new_node1(nodecount,'E','E');
+			nodecount++;
+			insert1(np);
+			
 		}
 	}
 	return 0;

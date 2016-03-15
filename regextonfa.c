@@ -1,0 +1,148 @@
+#include<stdio.h>
+#include<malloc.h>
+struct node
+{
+	int x;
+	struct ptr *p;
+	struct ptr *q;
+};
+struct node *start,*rear;
+struct ptr
+{
+	char val;
+	struct node *next;
+};
+struct node *create_new_node(int no,char pd1,char pd2)
+{
+	struct node *n=malloc(sizeof(struct node));
+	struct ptr *temp=malloc(sizeof(struct ptr));
+	n->x=no;
+	n->p=temp;
+	n->p->val=pd1;
+	n->p->next=NULL;
+	if(pd2!='$')
+	{
+		struct ptr *temp1=malloc(sizeof(struct ptr));
+		n->q=temp1;
+		n->q->val=pd2;
+		n->q->next=NULL;
+	}
+	return n;
+}
+void insert(struct node *np,char op,int f)
+{
+	if(f==2)
+	{
+		if(start==NULL)
+		{
+			start=rear=np;
+		}
+		else
+		{
+			rear->p->next=np;
+			rear=np;
+		}
+	}
+	else if(f==1)
+	{	
+		rear->p->next=np;
+		rear=np;
+		start->q->next=rear;
+		struct node *t;
+		t=start;
+		t=t->p->next;
+		t=t->p->next;
+		t->q->next=start->p->next;
+	}
+}
+void display(struct node *np,char op)
+{
+	struct node *t=np;
+	while(np!=NULL)
+	{
+			printf("%d on %c--->",np->x,np->p->val);
+			np=np->p->next;
+	}
+	if(op=='*')
+	{
+		struct node *t1=t;
+		printf("\nFor closure: -\n");
+		printf("%d on %c --->",t->x,t->p->val);
+		t=t->q->next;
+		printf("%d",t->x);
+		t1=t1->p->next;
+		t1=t1->p->next;
+		printf("\n%d on %c --->",t1->x,t1->p->val);
+		t1=t1->q->next;
+		printf("%d\n",t1->x);
+	}
+	else if(op=='+')
+	{
+		printf("\nFor addition:- \n");
+		printf("%d on %c --->",t->x,t->q->val);
+		t=t->q->next;
+		while(t!=NULL)
+		{
+			printf("%d on %c--->",t->x,t->p->val);
+			t=t->p->next;
+		}
+	}
+}
+void main()
+{
+	start=NULL;
+	rear=NULL;
+	char regex[100];
+	int i,nodecount=0;
+	printf("\nPlease Enter the regex:- ");
+	scanf("%s",regex);	
+	//printf("regex %s",regex); 
+	for(i=0;regex[i]!='\0';i++)
+	{
+		if(regex[i]=='.')
+		{
+			struct node *np;
+			np=create_new_node(++nodecount,regex[i-1],'$');
+			insert(np,regex[i],2);
+			np=create_new_node(++nodecount,'E','$');
+			insert(np,regex[i],2);
+			np=create_new_node(++nodecount,regex[i+1],'$');
+			insert(np,regex[i],2);
+			np=create_new_node(++nodecount,']','$');
+			insert(np,regex[i],2);
+			display(start,regex[i]);
+			printf("\n");
+		}
+		else if(regex[i]=='*')
+		{
+			struct node *np;
+			np=create_new_node(++nodecount,'E','E');
+			insert(np,'*',2);
+			np=create_new_node(++nodecount,regex[i-1],'$');
+			insert(np,'*',2);
+			np=create_new_node(++nodecount,'E','E');
+			insert(np,'*',2);
+			np=create_new_node(++nodecount,']','$');
+			insert(np,'*',1);
+			display(start,'*');
+		}
+		else if(regex[i]=='+')
+		{
+			struct node *np,*np1;
+			np=create_new_node(++nodecount,'E','E');
+			insert(np,'+',2);
+			np=create_new_node(++nodecount,regex[i-1],'$');
+			insert(np,'+',2);
+			np=create_new_node(++nodecount,'E','$');
+			insert(np,'+',2);
+			np=create_new_node(++nodecount,']','$');
+			insert(np,'+',2);
+			np=create_new_node(++nodecount,regex[i+1],'$');
+			start->q->next=np;
+			np1=create_new_node(++nodecount,'E','$');
+			np->p->next=np1;
+			np1->p->next=rear;
+			display(start,'+');
+		}	
+	}
+}
