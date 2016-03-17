@@ -47,27 +47,27 @@ void main()
 				case '+':
 					arr[ctr].start=++node;
 					arr[ctr].end=++node;
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr].start,arr[ctr-2].start);
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr].start,arr[ctr-1].start);
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr-2].end,arr[ctr].end);
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr-1].end,arr[ctr].end);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr].start,arr[ctr-2].start);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr].start,arr[ctr-1].start);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr-2].end,arr[ctr].end);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr-1].end,arr[ctr].end);
 					beg=arr[ctr].start;
 					clo=arr[ctr].end;
 				break;
 				case '.':
 					arr[ctr].end=arr[ctr-1].end;
 					arr[ctr].start=arr[ctr-2].start;
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr-2].end,arr[ctr-1].start);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr-2].end,arr[ctr-1].start);
 					beg=arr[ctr-2].start;
 					clo=arr[ctr-1].end;
 				break;
 				case '*':
 					arr[ctr].start=++node;
 					arr[ctr].end=++node;
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr].start,arr[ctr-1].start);
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr-1].end,arr[ctr].end);
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr].start,arr[ctr].end);
-					printf("\n\t    %d -----> %d     on     ϵ",arr[ctr-1].end,arr[ctr-1].start);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr].start,arr[ctr-1].start);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr-1].end,arr[ctr].end);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr].start,arr[ctr].end);
+					printf("\n\t    %d -----> %d     on     є",arr[ctr-1].end,arr[ctr-1].start);
 					beg=arr[ctr].start;
 					clo=arr[ctr].end;
 				break;
