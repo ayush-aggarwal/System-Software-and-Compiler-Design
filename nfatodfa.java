@@ -3,12 +3,8 @@ import java.util.*;
 public class nfatodfa
 {
 	public static int states,inputs;
-	public static void display(String arr[][],int ctr,Set<String> mainset)
+	public static void display(String arr[][],int ctr,String[] str)
 	{
-		List<String> list = new ArrayList<String>(mainset);
-		for(int i=0;i<states;i++)
-			list.add(i,"{"+(char)(i+112)+"}");
-		String[] str=list.toArray(new String[list.size()]);
 		for(int i=0;i<inputs;i++)
 			System.out.print("\t"+i);
 		System.out.println();
@@ -35,7 +31,8 @@ public class nfatodfa
 		System.out.print("Start State:- ");
 		start=br.readLine();
 		System.out.print("End State:- ");
-		end=br.readLine();
+		end=br.readLine().replace("{","").replace("}","");
+		List<String> endlist = new ArrayList<String>(Arrays.asList(end.split(" , ")));
 		String arr[][]=new String[(int)Math.pow(2,states)][inputs];
 		for(ctr=0;ctr<states;ctr++)
 		{
@@ -87,12 +84,49 @@ public class nfatodfa
 						tempset.addAll(Arrays.asList(arr[(int)temparr[m]-112][o].replace("{","").replace("}","").split(",")));
 					if(tempset.contains("0"))
 						tempset.remove("0");
+					if(tempset.isEmpty())
+						tempset.add("0");
 					arr[ctr][o]=tempset.toString().replace("[","{").replace("]","}").replace(" ","");
 				}
 				ctr=ctr+1;
 			}
 		}
-		display(arr,ctr,set);
+		List<String> list = new ArrayList<String>(set);
+		for(int i=0;i<states;i++)
+			list.add(i,"{"+(char)(i+112)+"}");
+		String[] str=list.toArray(new String[list.size()]);
+		display(arr,ctr,str);
+		List<Integer> indexset=new ArrayList<Integer>();
+		indexset.add(list.indexOf(start));
+		ListIterator it=indexset.listIterator();
+		while(it.hasNext())
+		{
+			int pos=(int)it.next();
+			for(int u=0;u<inputs;u++)
+				if(!indexset.contains(list.indexOf(arr[pos][u])))
+				{	
+					it.add(list.indexOf(arr[pos][u]));
+					it.previous();
+				}
+		}
+		System.out.println("\nReduced Transition Table");
+		for(int i=0;i<inputs;i++)
+			System.out.print("\t"+i);
+		System.out.println();
+		for(int v=0;v<indexset.size();v++)
+		{
+			System.out.print(str[indexset.get(v)]+"\t");
+			for(int w=0;w<inputs;w++)
+			{
+				System.out.print(arr[indexset.get(v)][w]+"\t");
+			}
+			System.out.println();
+		}
+		Set<String> endset=new HashSet<String>();
+		for(int u=0;u<endlist.size();u++)
+			for(int v=0;v<indexset.size();v++)
+				if(str[indexset.get(v)].indexOf(endlist.get(u))!=-1)
+					endset.add(str[indexset.get(v)]);
+		System.out.println("Final States:- "+endset);			
 	}
-}		
-			
+}					
