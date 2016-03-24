@@ -3,21 +3,7 @@ import java.util.*;
 public class nfatodfa
 {
 	public static int states,inputs;
-	public static void display(String arr[][],int ctr,String[] str)
-	{
-		for(int i=0;i<inputs;i++)
-			System.out.print("\t"+i);
-		System.out.println();
-		for(int i=0;i<ctr;i++)
-		{
-			System.out.print(str[i]+"\t");
-			for(int j=0;j<inputs;j++)
-			{
-				System.out.print(arr[i][j]+"\t");
-			}
-			System.out.println();
-		}
-	}
+	
 	public static void main(String args[]) throws IOException
 	{
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
@@ -33,7 +19,6 @@ public class nfatodfa
 		System.out.print("End State:- ");
 		end=br.readLine().replace("{","").replace("}","");
 		List<String> endlist = new ArrayList<String>(Arrays.asList(end.split(" , ")));
-		System.out.println(endlist);
 		String arr[][]=new String[(int)Math.pow(2,states)][inputs];
 		for(ctr=0;ctr<states;ctr++)
 		{
@@ -96,7 +81,6 @@ public class nfatodfa
 		for(int i=0;i<states;i++)
 			list.add(i,"{"+(char)(i+112)+"}");
 		String[] str=list.toArray(new String[list.size()]);
-		display(arr,ctr,str);
 		List<Integer> indexset=new ArrayList<Integer>();
 		indexset.add(list.indexOf(start));
 		ListIterator it=indexset.listIterator();
@@ -122,12 +106,6 @@ public class nfatodfa
 				System.out.print(arr[indexset.get(v)][w]+"\t");
 			}
 			System.out.println();
-		}
-		Set<String> endset=new HashSet<String>();
-		for(int u=0;u<endlist.size();u++)
-			for(int v=0;v<indexset.size();v++)
-				if(str[indexset.get(v)].indexOf(endlist.get(u))!=-1)
-					endset.add(str[indexset.get(v)]);
-		System.out.println("Final States:- "+endset);			
+		}			
 	}
 }					
