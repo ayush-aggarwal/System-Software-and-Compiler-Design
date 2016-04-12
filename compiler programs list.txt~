@@ -1,0 +1,11 @@
+text editor --done
+regex to nfa --done
+nfa to dfa --done
+elimination of left recursion and left factoring
+first and follow --done
+predictive parsing table -
+shift reduce parsing - 
+leading and trailling --done
+construction of LLR(0) items -
+pass 1 of 2 pass system -
+
