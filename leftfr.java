@@ -4,7 +4,7 @@ public class leftfr
 {
 	public static List<List> prod=new ArrayList<List>();
 	public static List<String> finalprod=new ArrayList<String>();
-	public static void leftfactoring()
+	public static void leftrecursion()
 	{
 		int c=64;	
 		for(int i=0;i<prod.size();i++)
@@ -36,7 +36,7 @@ public class leftfr
 				finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+s.substring(0,s.length()-1));
 			}
 		}
-		System.out.println("After Removing Left Factoring:- ");
+		System.out.println("After Removing Left Recursion:- ");
 		for(int i=0;i<finalprod.size();i++)
 			System.out.println(finalprod.get(i));
 	}
@@ -57,6 +57,6 @@ public class leftfr
 				temp.add(temp1.get(j));
 			prod.add(temp);
 		}
-		leftfactoring();
+		leftrecursion();
 	}
 }
