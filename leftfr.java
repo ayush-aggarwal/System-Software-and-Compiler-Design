@@ -40,6 +40,62 @@ public class leftfr
 		for(int i=0;i<finalprod.size();i++)
 			System.out.println(finalprod.get(i));
 	}
+	public static void leftfactoring()
+	{
+		finalprod.clear();
+		for(int i=0;i<prod.size();i++)
+		{
+			String t="";
+			int c=64,f=0;
+			if(prod.get(i).size()>2)
+			{
+				String temp=prod.get(i).get(1).toString();
+				String temp1=prod.get(i).get(2).toString();
+				for(int j=0;j<temp1.length();j++)
+					if(temp.charAt(j)==temp1.charAt(j))
+						t=t+temp.charAt(j);
+				if(!t.equals(""))
+					f=1;
+				if(f==1)
+				{
+					if(prod.get(i).size()>3)
+					{
+						String le="";
+						for(int j=3;j<prod.get(i).size();j++)
+							if(!prod.get(i).get(j).toString().contains(t))
+								le=le+prod.get(i).get(j).toString()+"/";
+						finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+t+(char)++c+"'/"+le.substring(0,le.length()-1));
+					}
+					else
+					{
+						finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+t+(char)++c+"'");
+					}
+					String el="";
+					for(int k=1;k<prod.get(i).size();k++)
+						if(prod.get(i).get(k).toString().contains(t))
+							el=el+prod.get(i).get(k).toString().replace(t,"")+"/";
+					finalprod.add((char)c+"'->"+el.substring(0,el.length()-1));
+				}
+				else
+				{
+					String s="";
+					for(int l=1;l<prod.get(i).size();l++)
+						s=s+prod.get(i).get(l).toString()+"/";
+					finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+s.substring(0,s.length()-1));
+				}
+			}
+			else
+			{	
+				String s="";
+				for(int l=1;l<prod.get(i).size();l++)
+					s=s+prod.get(i).get(l).toString()+"/";
+				finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+s.substring(0,s.length()-1));
+			}
+		}
+		System.out.println("After Removing Left Factoring:- ");
+		for(int i=0;i<finalprod.size();i++)
+			System.out.println(finalprod.get(i));
+	}
 	public static void main(String args[]) throws IOException
 	{
 		int nop;
@@ -58,5 +114,6 @@ public class leftfr
 			prod.add(temp);
 		}
 		leftrecursion();
+		leftfactoring();
 	}
 }
