@@ -6,7 +6,7 @@ public class leftfr
 	public static List<String> finalprod=new ArrayList<String>();
 	public static void leftfactoring()
 	{
-		int c=64;
+		int c=64;	
 		for(int i=0;i<prod.size();i++)
 		{
 			int f=0;
@@ -15,10 +15,13 @@ public class leftfr
 				{
 					String temp="";
 					char t=(char)++c;
-					for(int k=1;k<prod.get(i).size();k++)
-						if(prod.get(i).get(0).toString().charAt(0)!=prod.get(i).get(k).toString().charAt(0))
-							temp=temp+prod.get(i).get(k).toString()+t+"/";
-					finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+temp.substring(0,temp.length()-1));
+					if(prod.get(i).size()>2)
+						for(int k=1;k<prod.get(i).size();k++)
+							if(prod.get(i).get(0).toString().charAt(0)!=prod.get(i).get(k).toString().charAt(0))
+								temp=temp+prod.get(i).get(k).toString()+t+"/";
+						finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+temp.substring(0,temp.length()-1));
+					else
+						finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->ϵ");
 					finalprod.add(t+"->"+prod.get(i).get(j).toString().substring(1,prod.get(i).get(j).toString().length())+t+"/ϵ");
 					f=1;
 					break;
