@@ -19,12 +19,12 @@ public class leftfr
 					{
 						for(int k=1;k<prod.get(i).size();k++)
 							if(prod.get(i).get(0).toString().charAt(0)!=prod.get(i).get(k).toString().charAt(0))
-								temp=temp+prod.get(i).get(k).toString()+t+"/";
+								temp=temp+prod.get(i).get(k).toString()+t+"'/";
 						finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->"+temp.substring(0,temp.length()-1));
 					}
 					else
 						finalprod.add(prod.get(i).get(0).toString().charAt(0)+"->ϵ");
-					finalprod.add(t+"->"+prod.get(i).get(j).toString().substring(1,prod.get(i).get(j).toString().length())+t+"/ϵ");
+					finalprod.add(t+"'->"+prod.get(i).get(j).toString().substring(1,prod.get(i).get(j).toString().length())+t+"'/ϵ");
 					f=1;
 					break;
 				}
