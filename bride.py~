@@ -1,0 +1,30 @@
+t=input()
+for i in range(0,t):
+	n=map(int,raw_input().split())
+	n=n[0]
+	q=n[1]
+	a=map(int,raw_input().split())
+	for j in range(0,q):
+		t=map(int,raw_input().split())
+		if t[0]==1:
+			e=1
+			if t[1]<=t[2]:
+				for k in range(2,t[2]+1):
+					if k%2==1:
+						e=e+1
+				print e
+			else:
+				e=e-1
+				print e
+		elif t[0]==2:
+			e=1
+			for i in range(0,len(t)):
+				t[i]=t[i]+t[len(t)-1];
+			if t[1]<=t[2]:
+				for k in range(2,t[2]+1):
+					if k%2==1:
+						e=e+1
+				print e
+			else:
+				e=e-1
+				print e

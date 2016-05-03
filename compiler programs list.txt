@@ -1,7 +1,7 @@
 text editor --done
 regex to nfa --done
 nfa to dfa --done
-elimination of left recursion and left factoring
+elimination of left recursion and left factoring --done
 first and follow --done
 predictive parsing table -
 shift reduce parsing - 
